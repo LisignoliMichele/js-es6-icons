@@ -165,24 +165,11 @@ icon.color = colorIcon;
 
 return icon
 
-
 });
-console.log(iconsColored)
 
 // 2.2 mostro in pagina tutte le icone aggiornate con il colore assegnato ad ogni categoria.
 
-icons.forEach((icon) => {
-
-  const {name, family, prefix, color} = icon;
-  
-  html = `<div>
-  <i class="${family} ${prefix}${name}"style="color:${color}"></i>
-  <div class="title">${name}</div>
-  </div>`;
-  
-  container.append(html)
-
-  });
+printIcons (container, iconsColored);
 
 
   // Milestone 3
@@ -199,33 +186,41 @@ icons.forEach((icon) => {
 
   });
 
-  // in base alla option scelta mostro la categoria selezionata
+// in base alla option scelta mostro la categoria selezionata
 
-  select.change(function(){
+select.change(function(){
 
-    const optionSelected = $(this).val();
+  const optionSelected = $(this).val();
 
-    let iconFiltered = iconsColored.filter((icon) => {
-      return icon.category == optionSelected;
-    });
+  let iconsFiltered = iconsColored.filter((icon) => {
+    return icon.category == optionSelected;
+  });
 
-    if (iconFiltered.length == 0){
-      iconFiltered = iconsColored;
-    }
+  if (iconsFiltered.length == 0){
+    iconsFiltered = iconsColored
+  }
+  
+  printIcons (container, iconsFiltered);
 
-    container.html("")
+});
 
-    iconFiltered.forEach((icon) => {
 
-      const {name, family, prefix, color} = icon;
-      
-      html = `<div>
-      <i class="${family} ${prefix}${name}"style="color:${color}"></i>
-      <div class="title">${name}</div>
-      </div>`;
-      
-      container.append(html)
 
-    });
+// FUNZIONI
+
+function printIcons (target, icons) {
+  target.html("")
+
+  icons.forEach((icon) => {
+
+    const {name, family, prefix, color} = icon;
+    
+    html = `<div>
+    <i class="${family} ${prefix}${name}"style="color:${color}"></i>
+    <div class="title">${name}</div>
+    </div>`;
+    
+    target.append(html)
 
   });
+}
