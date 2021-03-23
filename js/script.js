@@ -121,17 +121,65 @@ const icons = [
 // Milestone 1
 
 
-icons.forEach((icon) => {
-  
-const {name, family, prefix} = icon;
-
 const container = $(".icons");
 
-const html = `<div>
-<i class="${family} ${prefix}${name}"></i>
-<div class="title">${name}</div>
-</div>`;
 
-container.append(html)
+// icons.forEach((icon) => {
+
+// const {name, family, prefix} = icon;
+
+// html = `<div>
+// <i class="${family} ${prefix}${name}"></i>
+// <div class="title">${name}</div>
+// </div>`;
+
+// container.append(html)
+
+// });
+
+// Milestone 2
+
+// divido le icone per categorie 
+const iconCategory = [];
+
+icons.forEach((icon) => {
+
+  if (iconCategory.includes(icon.category) == false ){
+    iconCategory.push(icon.category)
+  }
 
 });
+
+
+
+// aggiungo la proprietá colore ad ogni oggetto icona in base alla categoria
+
+const colors = ['lightblue', 'blue', 'darkblue'];
+
+const iconsColored = icons.map((icon)=> {
+
+const categoryIndex = iconCategory.indexOf(icon.category);
+const colorIcon = colors[categoryIndex];
+
+icon.color = colorIcon;
+
+return icon
+
+
+});
+console.log(iconsColored)
+
+
+
+icons.forEach((icon) => {
+
+  const {name, family, prefix, color} = icon;
+  
+  html = `<div>
+  <i class="${family} ${prefix}${name}"style="color:${color}"></i>
+  <div class="title">${name}</div>
+  </div>`;
+  
+  container.append(html)
+
+  });
