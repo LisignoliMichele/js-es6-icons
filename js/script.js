@@ -152,7 +152,7 @@ icons.forEach((icon) => {
 
 
 
-// aggiungo la proprietá colore ad ogni oggetto icona in base alla categoria
+// 2.1 aggiungo la proprietá colore ad ogni oggetto icona in base alla categoria
 
 const colors = ['lightblue', 'blue', 'darkblue'];
 
@@ -169,7 +169,7 @@ return icon
 });
 console.log(iconsColored)
 
-
+// 2.2 mostro in pagina tutte le icone aggiornate con il colore assegnato ad ogni categoria.
 
 icons.forEach((icon) => {
 
@@ -181,5 +181,51 @@ icons.forEach((icon) => {
   </div>`;
   
   container.append(html)
+
+  });
+
+
+  // Milestone 3
+ 
+  // creo le options nella select per ogni categoria di icone 
+
+  const select = $('#type')
+
+  iconCategory.forEach((type) => {
+
+    const selectHtml = `<option value="${type}">${type}</option>`;
+    
+    select.append(selectHtml);
+
+  });
+
+  // in base alla option scelta mostro la categoria selezionata
+
+  select.change(function(){
+
+    const optionSelected = $(this).val();
+
+    let iconFiltered = iconsColored.filter((icon) => {
+      return icon.category == optionSelected;
+    });
+
+    if (iconFiltered.length == 0){
+      iconFiltered = iconsColored;
+    }
+
+    container.html("")
+
+    iconFiltered.forEach((icon) => {
+
+      const {name, family, prefix, color} = icon;
+      
+      html = `<div>
+      <i class="${family} ${prefix}${name}"style="color:${color}"></i>
+      <div class="title">${name}</div>
+      </div>`;
+      
+      container.append(html)
+
+    });
 
   });
