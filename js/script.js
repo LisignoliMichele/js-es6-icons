@@ -140,15 +140,8 @@ const container = $(".icons");
 // Milestone 2
 
 // divido le icone per categorie 
-const iconCategory = [];
 
-icons.forEach((icon) => {
-
-  if (iconCategory.includes(icon.category) == false ){
-    iconCategory.push(icon.category)
-  }
-
-});
+const iconsCategories = getCategories(icons) 
 
 
 
@@ -158,7 +151,7 @@ const colors = ['lightblue', 'blue', 'darkblue'];
 
 const iconsColored = icons.map((icon)=> {
 
-const categoryIndex = iconCategory.indexOf(icon.category);
+const categoryIndex = iconsCategories.indexOf(icon.category);
 const colorIcon = colors[categoryIndex];
 
 icon.color = colorIcon;
@@ -172,19 +165,19 @@ return icon
 printIcons (container, iconsColored);
 
 
-  // Milestone 3
- 
-  // creo le options nella select per ogni categoria di icone 
+// Milestone 3
 
-  const select = $('#type')
+// creo le options nella select per ogni categoria di icone 
 
-  iconCategory.forEach((type) => {
+const select = $('#type')
 
-    const selectHtml = `<option value="${type}">${type}</option>`;
-    
-    select.append(selectHtml);
+iconCategory.forEach((type) => {
 
-  });
+  const selectHtml = `<option value="${type}">${type}</option>`;
+  
+  select.append(selectHtml);
+
+});
 
 // in base alla option scelta mostro la categoria selezionata
 
@@ -223,4 +216,19 @@ function printIcons (target, icons) {
     target.append(html)
 
   });
+}
+
+function getCategories(objArray) {
+  
+  const categories = [];
+
+  icons.forEach((obj) => {
+
+    if (categories.includes(obj.category) == false ){
+      categories.push(obj.category)
+    }
+  });
+
+  return categories;
+
 }
